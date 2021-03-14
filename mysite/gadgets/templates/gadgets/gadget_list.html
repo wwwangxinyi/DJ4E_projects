@@ -1,0 +1,30 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+  <h1>Gadgets List</h1>
+  {% if gadget_list %}
+  <ul>
+    {% for gadget in gadget_list %}
+      <li>
+          {{ gadget.nickname }} ({{ gadget.brand }})
+          (<a href="{% url 'gadgets:gadget_update' gadget.id %}">Update</a> |
+          <a href="{% url 'gadgets:gadget_delete' gadget.id %}">Delete</a>) <br/>
+          {{ gadget.year }} year ({{ gadget.notes }} )
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no gadgets in the library.</p>
+  {% endif %}
+  <p>
+    {% if brand_count > 0 %}
+      <a href="{% url 'gadgets:gadget_create' %}">Add a gadget</a>
+    {% else %}
+      Please add a brand before you add a gadget.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'gadgets:brand_list' %}">View brands</a> ({{ brand_count }}) | 
+    <a href="{% url 'gadgets:brand_create' %}">Add a brand</a>
+  </p>
+{% endblock %}
